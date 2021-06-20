@@ -1,0 +1,202 @@
+version: '2.0'
+config:
+  store_entities_as_slots: true
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+intents:
+- not:
+    use_entities: true
+- price:
+    use_entities: true
+- greet:
+    use_entities: true
+- restaurant_search:
+    use_entities: true
+- cuisine:
+    use_entities: true
+- email:
+    use_entities: true
+- location:
+    use_entities: true
+- affirm:
+    use_entities: true
+- goodbye:
+    use_entities: true
+- stop:
+    use_entities: true
+- action_search_restaurants:
+    use_entities: true
+- thank:
+    use_entities: true
+- ask_budget:
+    use_entities: true
+- ask_email:
+    use_entities: true
+- deny:
+    use_entities: true
+- out_of_scope:
+    use_entities: true
+entities:
+- cuisine
+- email
+- location
+- not
+- people
+- price
+slots:
+  price:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  cuisine:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  cuisine_validity:
+    type: rasa.shared.core.slots.CategoricalSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+    values:
+    - valid
+    - invalid
+  email:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  location:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  location_validity:
+    type: rasa.shared.core.slots.CategoricalSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+    values:
+    - valid
+    - invalid
+  search_validity:
+    type: rasa.shared.core.slots.CategoricalSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+    values:
+    - valid
+    - invalid
+  email_message:
+    type: rasa.shared.core.slots.UnfeaturizedSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+responses:
+  utter_bye:
+  - text: See you again!
+  - text: goodbye, hope i was of help today
+  - text: Bye-bye
+  - text: Bye!
+  utter_ask_budget:
+  - buttons:
+    - payload: low
+      title: Lesser than Rs. 300
+    - payload: mid
+      title: Rs. 300 to 700
+    - payload: high
+      title: More than 700
+    text: what is your price range?
+  utter_ask_cuisine:
+  - buttons:
+    - payload: Mexican
+      title: Mexican
+    - payload: Italian
+      title: Italian
+    - payload: American
+      title: American
+    - payload: Chinese
+      title: Chinese
+    - payload: South Indian
+      title: South Indian
+    - payload: North Indian
+      title: North Indian
+    text: what kind of cuisine would you like?
+  utter_ask_cuisine_retry:
+  - text: Will you like to search for some other cuisine?
+  - text: Can I help you look for some other cuisine today?
+  utter_ask_details:
+  - text: Would you like me to send an email with details of restaurants?
+  - text: Can i send you these details on mail ?
+  utter_ask_email:
+  - text: Please provide your email id.
+  - text: What is you email id.
+  utter_ask_location:
+  - text: Which city would you like to get the details of?
+  - text: In what location?
+  - text: Which city are you looking for?
+  - text: Can you tell me the location you are looking for?
+  utter_ask_location_retry:
+  - text: Will you like to search for some other location?
+  - text: Can I help you look for a restaurant at some other location?
+  - text: Please enter any other location we're not here to serve.
+  utter_confirm_email:
+  - text: An email has been sent to you.
+  - text: Sent. Bon Appetit!.
+  utter_cuisine_invalid:
+  - text: Sorry. We do not serve the requested cuisine.
+  - text: I am unable to understand your choice.
+  utter_did_that_help:
+  - text: Did that help you?
+  - text: Is that fine?
+  utter_deny:
+  - text: Sorry, hope to serve you better next time.
+  utter_greet:
+  - text: Hello there! How can i help you today?
+  - text: Hey! Is there anything i can help you with?
+  - text: Hello Is any help needed ?
+  utter_happy:
+  - text: Great carry on!
+  - text: Yah!!
+  utter_location_invalid:
+  - text: Sorry, we do not serve at the requested location.
+  - text: Sorry, we are not started the service on that location.
+  utter_out_of_scope:
+  - text: Sorry, I do not understand this. Please be specific.
+  - text: Sorry, I cannot do specific task.
+  utter_search_invalid:
+  - text: Sorry, we do not have any restaurants which match your requirements. Hope to serve you better next time!
+  - text: Sorry, I found nothing this time.
+  utter_thanks_response:
+  - text: You are welcome!
+  - text: You are most welcome! Is there anything else that i can help you with?
+  - text: Thank You so much for using fodiee.
+actions:
+- action_cuisine_valid
+- action_location_valid
+- action_restart
+- action_search_restaurants
+- action_send_email
+- action_slot_reset
+- utter_ask_budget
+- utter_ask_cuisine
+- utter_ask_cuisine_retry
+- utter_ask_details
+- utter_ask_email
+- utter_ask_location
+- utter_ask_location_retry
+- utter_bye
+- utter_confirm_email
+- utter_cuisine_invalid
+- utter_deny
+- utter_did_that_help
+- utter_greet
+- utter_happy
+- utter_location_invalid
+- utter_out_of_scope
+- utter_search_invalid
+- utter_thanks_response
+forms: {}
+e2e_actions: []
